@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LearnReact", "LearnReact\LearnReact.esproj", "{82983D99-5E99-4189-9255-2E1AAB1114A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7922D618-49D1-46C7-B392-C1B1BF5A19A8}
+	EndGlobalSection
+EndGlobal
