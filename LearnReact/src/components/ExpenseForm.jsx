@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ExpnseForm.css';
+import MyButton from './MyButton.jsx';
 
 const ExpenseForm = (props) => {
 
@@ -13,6 +14,8 @@ const ExpenseForm = (props) => {
             enteredAmount: 0.00,
             enteredDate:   ''
         });
+
+    const [isValid, setIsValid] = useState(true);
 
     const titleChangeHandler = (event) => {
 
@@ -52,7 +55,14 @@ const ExpenseForm = (props) => {
     };
 
     const subitNewExpenseHandler = (event) => {
+
         event.preventDefault();
+        setIsValid(true);
+
+        if (userInput.enteredTitle.trim().length === 0) {
+            setIsValid(false);
+            return;
+        }
 
         const expenseData = {
             expenseDate:   new Date(userInput.enteredDate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$3/$2/$1")),
@@ -78,10 +88,10 @@ const ExpenseForm = (props) => {
         <form onSubmit={subitNewExpenseHandler}>
             <div className='new-expense__controls'>
                 <div className='new-expense__control'>
-                    <label>
-                        Title
+                    <label className={`form-label ${!isValid ? 'invalid-label' : ''}`}>
+                        Title 
                     </label>
-                    <input type="text" value={userInput.enteredTitle} onChange={titleChangeHandler} />
+                    <input className={`form-control ${!isValid ? 'invalid-title' : ''}`} type="text" value={userInput.enteredTitle} onChange={titleChangeHandler} />
                 </div>
                 <div className='new-expense__control'>
                     <label>
@@ -95,7 +105,7 @@ const ExpenseForm = (props) => {
                     </label>
                     <input type="date" value={userInput.enteredDate} min="2019-01-01" onChange={dateChangedHandler} />
                 </div>
-                <div className="new-expnse__actions">
+                <div className="new-expense__actions">
                     <button type="submit">Add Expense</button>
                 </div>
             </div>

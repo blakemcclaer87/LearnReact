@@ -24,3 +24,12 @@
 .new-expense__actions {
     text-align: right;
 }
+
+.invalid-title{
+    background: salmon;
+    border-color: red;
+}
+
+.invalid-label{
+    color: red;
+}
