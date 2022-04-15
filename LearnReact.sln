@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LearnReact", "LearnReact\LearnReact.esproj", "{82983D99-5E99-4189-9255-2E1AAB1114A0}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UserManager", "UserManager\UserManager.esproj", "{EBBB4034-0809-477D-9B4A-55757EF3D528}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,12 @@ Global
 		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{82983D99-5E99-4189-9255-2E1AAB1114A0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EBBB4034-0809-477D-9B4A-55757EF3D528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBBB4034-0809-477D-9B4A-55757EF3D528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBBB4034-0809-477D-9B4A-55757EF3D528}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EBBB4034-0809-477D-9B4A-55757EF3D528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBBB4034-0809-477D-9B4A-55757EF3D528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBBB4034-0809-477D-9B4A-55757EF3D528}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
