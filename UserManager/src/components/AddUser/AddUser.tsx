@@ -1,5 +1,5 @@
 import './AddUser.css';
-import Reacxt, { useState } from 'react';
+import React, { useState } from 'react';
 import Card from '../Card/Card';
 import Button from '../Button/Button';
 
@@ -12,7 +12,18 @@ const AddUser = (props: any) => {
 
 
     const addNewUser = (event: any) => {
+
         event.preventDefault();
+
+        if (enteredUsername.trim().length === 0 || +enteredAge == 0) {
+            return;
+        }
+
+        console.log([enteredUsername, enteredAge]);
+
+        setUsername('');
+        setAge(0);
+
     }
 
     const usernameChangedHandler = (event: any) => {
@@ -28,9 +39,9 @@ const AddUser = (props: any) => {
             <Card className="input">
                 <form onSubmit={addNewUser}>
                     <label htmlFor="username">Username</label>
-                    <input id="username" type="text" onChange={usernameChangedHandler} />
+                    <input id="username" type="text" value={enteredUsername} onChange={usernameChangedHandler} />
                     <label htmlFor="age">Age</label>
-                    <input id="age" type="number" onChange={ageChangedHandler} />
+                    <input id="age" type="number" value={enteredAge} onChange={ageChangedHandler} />
                     <Button type="submit">Add User</Button>
                 </form>
             </Card>
