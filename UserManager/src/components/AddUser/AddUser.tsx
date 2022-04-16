@@ -15,11 +15,11 @@ const AddUser = (props: any) => {
 
         event.preventDefault();
 
-        if (enteredUsername.trim().length === 0 || +enteredAge == 0) {
+        if (enteredUsername.trim().length === 0 || +enteredAge === 0) {
             return;
         }
 
-        console.log([enteredUsername, enteredAge]);
+        props.onAddUser(enteredUsername, enteredAge);
 
         setUsername('');
         setAge(0);
