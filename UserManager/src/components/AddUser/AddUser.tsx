@@ -2,20 +2,33 @@ import './AddUser.css';
 import React, { useState } from 'react';
 import Card from '../Card/Card';
 import Button from '../Button/Button';
+import ErrorModal from '../ErrorModal/ErrorModal'
+
 
 const AddUser = (props: any) => {
+
+    const initiqlError: Error = { title: '', message: '' };
+
+;
 
     //array destructuring
     //
     const [enteredUsername, setUsername] = useState('');
     const [enteredAge, setAge] = useState(0);
-
+    const [error, setError] = useState(initiqlError);
 
     const addNewUser = (event: any) => {
 
         event.preventDefault();
 
         if (enteredUsername.trim().length === 0 || +enteredAge === 0) {
+            let errorItem: Error = {
+                title: 'Invalid user input.',
+                message: 'plkease provide a value for name and an age > 0.'
+            };
+
+            setError(errorItem);
+
             return;
         }
 
@@ -34,8 +47,18 @@ const AddUser = (props: any) => {
         setAge(event.target.value);
     }
 
+    const errorHandler = () =>  {
+        let errorItem: Error = {
+            title: '',
+            message: ''
+        };
+
+        setError(errorItem);
+    }
+
     return (
         <div>
+            {error && error.message.trim().length > 0 && <ErrorModal onDismiss={errorHandler} title={error.title} message={error.message}></ErrorModal>}
             <Card className="input">
                 <form onSubmit={addNewUser}>
                     <label htmlFor="username">Username</label>
@@ -50,3 +73,8 @@ const AddUser = (props: any) => {
 };
 
 export default AddUser;
+
+export interface Error{
+    title: string;
+    message: string;
+}
