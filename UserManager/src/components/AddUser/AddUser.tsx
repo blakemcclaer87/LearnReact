@@ -1,5 +1,5 @@
 import './AddUser.css';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Card from '../Card/Card';
 import Button from '../Button/Button';
 import ErrorModal from '../ErrorModal/ErrorModal'
@@ -7,9 +7,12 @@ import Wrapper from '../Helpers/Wrapper';
 
 const AddUser = (props: any) => {
 
-    const initiqlError: Error = { title: '', message: '' };
+    //set u[p ref hooks
+    //
+    const nameInputRef = useRef<HTMLInputElement>(null);
+    const ageInputRef = useRef<HTMLInputElement>(null);
 
-;
+    const initiqlError: Error = { title: '', message: '' };
 
     //array destructuring
     //
@@ -25,7 +28,7 @@ const AddUser = (props: any) => {
             let errorItem: Error = {
                 title: 'Invalid user input.',
                 message: 'plkease provide a value for name and an age > 0.'
-            };
+            }
 
             setError(errorItem);
 
@@ -62,9 +65,18 @@ const AddUser = (props: any) => {
             <Card className="input">
                 <form onSubmit={addNewUser}>
                     <label htmlFor="username">Username</label>
-                    <input id="username" type="text" value={enteredUsername} onChange={usernameChangedHandler} />
+                    <input id="username" 
+                    ref={nameInputRef}
+                    type="text" 
+                    value={enteredUsername} 
+                    onChange={usernameChangedHandler} />
                     <label htmlFor="age">Age</label>
-                    <input id="age" type="number" value={enteredAge} onChange={ageChangedHandler} />
+                    <input 
+                    id="age" 
+                    ref={ageInputRef}
+                    type="number" 
+                    value={enteredAge} 
+                    onChange={ageChangedHandler} />
                     <Button type="submit">Add User</Button>
                 </form>
             </Card>
