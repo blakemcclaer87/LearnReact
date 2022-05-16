@@ -1,4 +1,6 @@
-const DUMMY_MEALS =
+import { IMeal } from "../interfaces/IMeal";
+
+const DUMMY_MEALS: IMeal[] =
 [
     {
         id: 1,
