@@ -8,15 +8,17 @@ const AvailableMeals = (props: any) => {
         <div className={classes.meals}>
             <Card>
                 <ul>
-                    <li>
-                        Meal 1
-                    </li>
-                    <li>
-                        Meal 2
-                    </li>
-                    <li>
-                        Meal 3
-                    </li>
+                   {
+                       props.mealList.map((meal: any) => {
+                            return ( 
+                                <li key={meal.id}>
+                                    <h2>{meal.name}</h2>
+                                    <p>{meal.description}</p>
+                                    <p>{meal.price}</p>
+                                </li>
+                            );
+                       })
+                   }
                 </ul>
             </Card>
         </div>

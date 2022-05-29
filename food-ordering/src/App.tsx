@@ -1,29 +1,15 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
-
-import DUMMY_MEALS from './data/AvailableMeals';
+import Meals from './components/Menu/Meals/Meals';
 import Header from './components/ui/Header/Header';
-import MenuOverview from './components/Menu/MenuOverview/MenuOverview';
-import AvailableMeals from './components/Menu/AvailableMeals/AvailableMeals';
-import { IMeal } from './interfaces/IMeal';
 
 function App() {
-
-  const baseMealArray: IMeal[] = [];
-  const [availableMealItems, setAvailableMealItems] = useState(baseMealArray);
-
-  useEffect(() => {
-    setAvailableMealItems(DUMMY_MEALS);
-    console.log(availableMealItems);
-  },
-  [
-  ]);
-
   return (
     <Fragment>
         <Header></Header>
-        <MenuOverview></MenuOverview>
-        <AvailableMeals></AvailableMeals>
+        <main>
+          <Meals></Meals>
+        </main>
     </Fragment>
   );
 }
