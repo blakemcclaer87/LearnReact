@@ -34,7 +34,7 @@ const AddMealForm = (props: any) => {
 
     return (
         <form className={classes.form}>
-            <Input id='quantity' 
+            <Input id={props.id}
                 type='number' 
                 label='Quantity'
                 ref={quantityRef}
