@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import AddMealForm from "../AddMealForm/AddMealForm";
 import classes from './MealItem.module.css';
 
 const MealItem = (props: any) => {
@@ -14,7 +15,7 @@ const MealItem = (props: any) => {
                     <div className={classes.price}>{formattedPrice}</div>
                 </div>
                 <div>
-
+                    <AddMealForm></AddMealForm>
                 </div>
             </li>
         </Fragment>
