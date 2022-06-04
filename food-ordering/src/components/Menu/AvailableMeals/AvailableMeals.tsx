@@ -2,6 +2,7 @@ import React from "react";
 
 import classes from './AvailableMeals.module.css';
 import Card from "../../ui/Card/Card";
+import MealItem from "../MealIem/MealItem";
 
 const AvailableMeals = (props: any) => {
     return (
@@ -9,13 +10,9 @@ const AvailableMeals = (props: any) => {
             <Card>
                 <ul>
                    {
-                       props.mealList.map((meal: any) => {
+                       props.mealList.map((currentMeal: any) => {
                             return ( 
-                                <li key={meal.id}>
-                                    <h2>{meal.name}</h2>
-                                    <p>{meal.description}</p>
-                                    <p>{meal.price}</p>
-                                </li>
+                                <MealItem meal={currentMeal}/>
                             );
                        })
                    }
