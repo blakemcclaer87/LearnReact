@@ -26,6 +26,7 @@ const AddMealForm = (props: any) => {
     const [quantityState, dispatchQuantity]  = useReducer(quantityReducer, {value: '0', isValid: false});
 
     const quantityChangedHandler = (event: FormEvent<HTMLInputElement>) => {
+        console.log('quatity chnaged.');
         dispatchQuantity({
             type: 'QUANTITY_CHANGED',
             value: event.currentTarget.value
@@ -34,12 +35,14 @@ const AddMealForm = (props: any) => {
 
     return (
         <form className={classes.form}>
-            <Input id={props.id}
-                type='number' 
-                label='Quantity'
-                ref={quantityRef}
-                onChange={quantityChangedHandler}
-                value={quantityState.value}>
+            <Input label='Quantity' input={{
+                        id: props.id,
+                        key: props.id,
+                        type: 'number',           
+                        ref: quantityRef,
+                        onChange: quantityChangedHandler,
+                        value: quantityState.value
+                    }}>
             </Input>
             <button>+ ADD</button>
         </form>

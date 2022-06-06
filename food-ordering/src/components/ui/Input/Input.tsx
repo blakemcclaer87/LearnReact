@@ -10,12 +10,7 @@ const Input = (props: any, ref: any) => {
     return (
         <div className={classes.input}>
             <label htmlFor={props.id}>{props.label}</label>
-            <input
-                ref={inputRef}
-                type={props.type}
-                id={props.id}
-                value={props.value}
-                onChange={props.onChange}/>
+            <input {...props.input}/>
         </div>
     );
 };
