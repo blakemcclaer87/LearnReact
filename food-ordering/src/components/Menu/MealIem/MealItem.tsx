@@ -8,7 +8,7 @@ const MealItem = (props: any) => {
 
     return (
         <Fragment>
-            <li key={props.meal.id} className={classes.meal}>
+            <li  className={classes.meal}>
                 <div>
                     <h3>{props.meal.name}</h3>
                     <div className={classes.description}>{props.meal.description}</div>
