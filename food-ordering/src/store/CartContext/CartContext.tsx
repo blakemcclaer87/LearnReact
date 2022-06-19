@@ -1,10 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { ICartItem } from "../../interfaces/ICartItem";
+import { IReducerAction } from "../../interfaces/IReducerAction";
+import { ICartReducerState } from '../../interfaces/ICartReducerState';
+
+const defaultCartState: ICartReducerState = {
+    cartItems:[] as ICartItem[],
+    totalAmount: 0,
+    totalItems: 0
+};
+
+const cartReducer = (state: ICartReducerState, action: IReducerAction) => {
+
+    if(action.type === 'ADD_TYPE_ITEM'){
+
+        const updatedItems = state.cartItems.concat(action.value as ICartItem);
+        const newAmount    = state.totalAmount + (action.value.amount * action.value.price);
+        const newTotal     = state.totalItems++; 
+
+        return {
+            cartItems:   updatedItems,
+            totalAmount: newAmount,
+            totalItems:  newTotal
+        } as ICartReducerState
+    }
+
+    return defaultCartState;
+};
 
 const CartContet = React.createContext({
     CartItems: [] as ICartItem[],
-    CartTotalItems: 0,
-    getCartTotalItems: () => {},
+    CartTotalAmount: 0,
+    CartTotalItems:  0,
     onAddItem: (item: ICartItem) => {},
     onRemoveItem: (item: ICartItem) => {},
     onClearCart: () => {}
@@ -12,68 +38,26 @@ const CartContet = React.createContext({
 
 export const CartContextProvider = (props: any) => {
 
-    const [cartItems, setCartItems] = useState([] as ICartItem[]);
-    const [totalItems, setTotalItems] = useState(0);
-
-    useEffect(() => {
-        if(cartItems && cartItems.length > 0){
-            let numberOfItems = 0;
-
-            numberOfItems = cartItems.reduce((currentNumber, item) => {
-                return currentNumber + item.amount;
-            }, 0);
-
-            setTotalItems(numberOfItems);
-        }else{
-            setTotalItems(0);
-        }
-    },
-    [cartItems]);
+   const [cartState, dispatchCartAction] =  useReducer(cartReducer, defaultCartState);
 
     const addItemHandler = (item: ICartItem) => {
-        setCartItems((previousState: ICartItem[]) => {
-            return [...previousState, item];
-        })
+        dispatchCartAction({type: 'ADD_TYPE_ITEM', value: item});
     };
 
-    const getTotalItemsInCart = () => {
-        let numberOfItems = 0;
-
-        if(cartItems && cartItems.length > 0){
-            numberOfItems = cartItems.reduce((currentNumber, item) => {
-                return currentNumber + item.amount;
-            }, 0);
-        }
-
-        return numberOfItems;
-    }
-
     const removeItemHandler = (item: ICartItem) => {
-        setCartItems((previousState: ICartItem[]) => {
-            
-            let itemIndex = previousState.findIndex(arrayItem => arrayItem.id === item.id);
-
-            if(itemIndex){
-                 previousState.splice(itemIndex, 1);
-            }
-
-            return previousState;
-        });
     };
 
     const clearCart = () => {
-        if(cartItems){
-            setCartItems([] as ICartItem[]);        
-        }
+
     };
 
     return (<CartContet.Provider value={{
-        CartItems          : cartItems,
-        CartTotalItems     : totalItems,
+        CartItems          : cartState.cartItems,
+        CartTotalAmount    : cartState.totalAmount,
+        CartTotalItems     : cartState.totalItems,
         onAddItem          : addItemHandler,
         onRemoveItem       : removeItemHandler,
-        onClearCart        : clearCart,
-        getCartTotalItems  : getTotalItemsInCart
+        onClearCart        : clearCart
       }}>{props.children}</CartContet.Provider>);
 };
 
