@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ICartItem } from "../../interfaces/ICartItem";
 
 const CartContet = React.createContext({
     CartItems: [] as ICartItem[],
     CartTotalItems: 0,
+    getCartTotalItems: () => {},
     onAddItem: (item: ICartItem) => {},
     onRemoveItem: (item: ICartItem) => {},
     onClearCart: () => {}
@@ -12,13 +13,40 @@ const CartContet = React.createContext({
 export const CartContextProvider = (props: any) => {
 
     const [cartItems, setCartItems] = useState([] as ICartItem[]);
-    const [totalItems, setTpotalItems] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
+
+    useEffect(() => {
+        if(cartItems && cartItems.length > 0){
+            let numberOfItems = 0;
+
+            numberOfItems = cartItems.reduce((currentNumber, item) => {
+                return currentNumber + item.amount;
+            }, 0);
+
+            setTotalItems(numberOfItems);
+        }else{
+            setTotalItems(0);
+        }
+    },
+    [cartItems]);
 
     const addItemHandler = (item: ICartItem) => {
         setCartItems((previousState: ICartItem[]) => {
             return [...previousState, item];
         })
     };
+
+    const getTotalItemsInCart = () => {
+        let numberOfItems = 0;
+
+        if(cartItems && cartItems.length > 0){
+            numberOfItems = cartItems.reduce((currentNumber, item) => {
+                return currentNumber + item.amount;
+            }, 0);
+        }
+
+        return numberOfItems;
+    }
 
     const removeItemHandler = (item: ICartItem) => {
         setCartItems((previousState: ICartItem[]) => {
@@ -35,16 +63,17 @@ export const CartContextProvider = (props: any) => {
 
     const clearCart = () => {
         if(cartItems){
-            setCartItems([] as ICartItem[]);
+            setCartItems([] as ICartItem[]);        
         }
     };
 
     return (<CartContet.Provider value={{
-        CartItems       : cartItems,
-        onAddItem       : addItemHandler,
-        onRemoveItem    : removeItemHandler,
-        onClearCart     : clearCart,
-        CartTotalItems  : totalItems
+        CartItems          : cartItems,
+        CartTotalItems     : totalItems,
+        onAddItem          : addItemHandler,
+        onRemoveItem       : removeItemHandler,
+        onClearCart        : clearCart,
+        getCartTotalItems  : getTotalItemsInCart
       }}>{props.children}</CartContet.Provider>);
 };
 
