@@ -3,13 +3,16 @@ import { ICartItem } from "../../interfaces/ICartItem";
 
 const CartContet = React.createContext({
     CartItems: [] as ICartItem[],
+    CartTotalItems: 0,
     onAddItem: (item: ICartItem) => {},
-    onRemoveItem: (item: ICartItem) => {}
+    onRemoveItem: (item: ICartItem) => {},
+    onClearCart: () => {}
 });
 
 export const CartContextProvider = (props: any) => {
 
-   const [cartItems, setCartItems] = useState([] as ICartItem[]);
+    const [cartItems, setCartItems] = useState([] as ICartItem[]);
+    const [totalItems, setTpotalItems] = useState(0);
 
     const addItemHandler = (item: ICartItem) => {
         setCartItems((previousState: ICartItem[]) => {
@@ -30,10 +33,18 @@ export const CartContextProvider = (props: any) => {
         });
     };
 
+    const clearCart = () => {
+        if(cartItems){
+            setCartItems([] as ICartItem[]);
+        }
+    };
+
     return (<CartContet.Provider value={{
         CartItems       : cartItems,
         onAddItem       : addItemHandler,
-        onRemoveItem    : removeItemHandler
+        onRemoveItem    : removeItemHandler,
+        onClearCart     : clearCart,
+        CartTotalItems  : totalItems
       }}>{props.children}</CartContet.Provider>);
 };
 

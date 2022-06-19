@@ -1,10 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
+import CartContet from "../../../store/CartContext/CartContext";
 import CartIcon from '../CartIcon/CartIcon';
 import CartModal from "../CartModal/CartModal";
 
 import classes from './CartButton.module.css';
 
 const CartButton = (props: any) => {
+
+    const cartContext = useContext(CartContet);
 
     const [showCart, setShowCart] = useState(false);
 
@@ -26,7 +29,7 @@ const CartButton = (props: any) => {
                     Your Cart
                 </span>
                 <span className={classes.badge}>
-                    0
+                    {cartContext.CartTotalItems}
                 </span>
             </button>
             {showCart && <CartModal onDismiss={dismissModal}></CartModal>}

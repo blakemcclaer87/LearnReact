@@ -12,7 +12,7 @@ const AvailableMeals = (props: any) => {
                    {
                        props.mealList.map((currentMeal: any) => {
                             return ( 
-                                <MealItem meal={currentMeal}/>
+                                <MealItem key={currentMeal.id} meal={currentMeal}/>
                             );
                        })
                    }
