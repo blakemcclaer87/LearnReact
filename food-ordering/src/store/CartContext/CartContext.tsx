@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import { ICartItem } from "../../interfaces/ICartItem";
 import { IReducerAction } from "../../interfaces/IReducerAction";
 import { ICartReducerState } from '../../interfaces/ICartReducerState';
