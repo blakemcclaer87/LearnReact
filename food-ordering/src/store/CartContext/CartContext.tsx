@@ -13,12 +13,34 @@ const cartReducer = (state: ICartReducerState, action: IReducerAction) => {
 
     if(action.type === 'ADD_TYPE_ITEM'){
 
-        const updatedItems = state.cartItems.concat(action.value as ICartItem);
-        const newAmount    = state.totalAmount + (action.value.amount * action.value.price);
-        const newTotal     = state.totalItems++; 
+        const existingCartItemIndex = state.cartItems.findIndex(item => item.id === action.value.id);
+        const existingItem          = state.cartItems[existingCartItemIndex];
 
-        console.log(updatedItems);
-        
+        let updatedItem: ICartItem;
+        let updatedItems: ICartItem[];
+
+        let newTotal: number = state.cartItems.length;
+
+        if(existingItem){
+            updatedItem = {
+                ...existingItem,
+                amount: (existingItem.amount + +action.value.amount)
+            };
+
+            updatedItems = [...state.cartItems];
+            updatedItems[existingCartItemIndex] = updatedItem;
+
+        }else{
+            updatedItems = state.cartItems.concat(action.value as ICartItem);
+            newTotal     = state.totalItems++;
+        }
+
+        let newAmount: number = 0;
+
+        updatedItems.forEach((item: ICartItem) => {
+            newAmount = newAmount + (item.amount * item.price);
+        });
+       
         return {
             cartItems:   updatedItems,
             totalAmount: newAmount,
