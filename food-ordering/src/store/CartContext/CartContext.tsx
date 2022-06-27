@@ -17,6 +17,8 @@ const cartReducer = (state: ICartReducerState, action: IReducerAction) => {
         const newAmount    = state.totalAmount + (action.value.amount * action.value.price);
         const newTotal     = state.totalItems++; 
 
+        console.log(updatedItems);
+        
         return {
             cartItems:   updatedItems,
             totalAmount: newAmount,
@@ -28,12 +30,12 @@ const cartReducer = (state: ICartReducerState, action: IReducerAction) => {
 };
 
 const CartContet = React.createContext({
-    CartItems: [] as ICartItem[],
+    CartItems      : [] as ICartItem[],
     CartTotalAmount: 0,
-    CartTotalItems:  0,
-    onAddItem: (item: ICartItem) => {},
-    onRemoveItem: (item: ICartItem) => {},
-    onClearCart: () => {}
+    CartTotalItems : 0,
+    onAddItem      : (item: ICartItem) => {},
+    onRemoveItem   : (item: ICartItem) => {},
+    onClearCart    : () => {}
 });
 
 export const CartContextProvider = (props: any) => {
