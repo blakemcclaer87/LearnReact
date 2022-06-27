@@ -1,18 +1,14 @@
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 import { ICartItem } from "../../../interfaces/ICartItem";
+import CartContet from "../../../store/CartContext/CartContext";
+import CartItem from "../CartItem/CartItem";
 import classes from './Cart.module.css';
 
 const Cart = (props: any) => {
 
-    const CART_ITEMS: ICartItem[] = [
-        {
-            id: 1,
-            name: 'sushi',
-            description: 'super nice sushi',
-            price: 10.00,
-            amount: 2
-        }
-    ]
+    const cartContext = useContext(CartContet);
+    const totalAMount = `$${cartContext.CartTotalAmount.toFixed(2)}`;
+    const hasItems    = cartContext.CartTotalItems > 0;
 
     const cancelCart = () => {
         if(props.onDismiss){
@@ -26,6 +22,14 @@ const Cart = (props: any) => {
         }
     };
 
+    const cartRemoveItemHandler = () => {
+
+    };
+
+    const cartAddItemHandler = () => {
+
+    };
+
     return (
         <div>
             <h1>
@@ -33,26 +37,28 @@ const Cart = (props: any) => {
             </h1>
             <hr/>
             <ul className={classes['cart-items']}>
-                {CART_ITEMS.map((item : ICartItem) => {
+                {cartContext.CartItems.map((item : ICartItem) => {
                     return (
-                        <li>
-                            {item.name}
-                        </li>
+                        <CartItem cartItem={item} 
+                        key={item.id}
+                        onAddItem={cartAddItemHandler.bind(null, item)}
+                        onRemoveItem={cartRemoveItemHandler.bind(null, item.id)}>
+                        </CartItem>
                     );
                 })}
             </ul>
             <div className={classes.total}>
                 <span>Total Amunt:</span>
-                <span>$35</span>
+                <span>{totalAMount}</span>
             </div>
             <hr/>
             <div className={classes.actions}>
                 <button onClick={cancelCart} className={classes['classes--alt']}>
                     Cancel
                 </button>
-                <button onClick={orderCart} className={classes.button}>
+                {hasItems && <button onClick={orderCart} className={classes.button}>
                     Order
-                </button>
+                </button>}
             </div>
         </div>
     );

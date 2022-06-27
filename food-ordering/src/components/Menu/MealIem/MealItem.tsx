@@ -6,7 +6,7 @@ import classes from './MealItem.module.css';
 
 const MealItem = (props: any) => {
 
-    const formattedPrice = '$' + props.meal.price.toFixed(2);
+    const formattedPrice =  `$${props.meal.price.toFixed(2)}`;
     const cartContext    = useContext(CartContet);
 
     const AddItemToCart = (enteredAmount: Number) => {
