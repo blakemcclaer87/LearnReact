@@ -11,16 +11,19 @@ const CartItem = (props: any) => {
                 <h2>
                     {props.cartItem.name}
                 </h2>
-            </div>
-            <div className={classes.summary}>
-                <span className={classes.price}>
-                    {formattedPrice}
-                </span>
-                <span className={classes.amount}>
-                    {props.cartItem.amount}
-                </span>
+                <div className={classes.summary}>
+                    <span className={classes.price}>
+                        {formattedPrice}
+                    </span>
+                    <span className={classes.amount}>
+                        {props.cartItem.amount}
+                    </span>
+                </div>
             </div>
             <div className={classes.actons}>
+                <button className={classes['cart-item-button']}>
+                    +
+                </button>
                 <button className={classes['cart-item-button']}>
                     X
                 </button>
