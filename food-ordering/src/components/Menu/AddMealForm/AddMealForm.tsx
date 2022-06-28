@@ -6,14 +6,16 @@ const quantityReducer = (state: any, action: any) => {
 
     if(action.type === 'QUANTITY_CHANGED'){
       return {
-        value:   +action.value,
-        isValid: +action.value > 0
+        value     : +action.value,
+        hasUpdated: true,
+        isValid   : +action.value > 0
       }
     }
   
     return {
-      value:   '0',
-      isValid: false
+      value     : '0',
+      isValid   : false,
+      hasUpdated: false
     }
 };
 
@@ -21,11 +23,9 @@ const AddMealForm = (props: any) => {
 
     const quantityRef = useRef<HTMLInputElement>(null);
 
-    const [quantityState, dispatchQuantity]  = useReducer(quantityReducer, {value: '0', isValid: false});
+    const [quantityState, dispatchQuantity]  = useReducer(quantityReducer, {value: '0', hasUpdated: false, isValid: false});
 
     const submitNewMealHandler = (event: FormEvent) => {
-        console.log('in submit habndler.');
-        console.log(quantityState);
         event.preventDefault();
         if(quantityState.isValid){
             props.AddToCart(+quantityState.value);
@@ -35,7 +35,6 @@ const AddMealForm = (props: any) => {
     };
 
     const quantityChangedHandler = (event: FormEvent<HTMLInputElement>) => {
-        console.log('in quantity changed handler');
         dispatchQuantity({
             type: 'QUANTITY_CHANGED',
             value: event.currentTarget.value
@@ -54,7 +53,7 @@ const AddMealForm = (props: any) => {
                     }}>
             </Input>
             <button>+ ADD</button>
-            {!quantityState.isValid && <p>Please enter an amount</p>}
+            {(!quantityState.isValid && quantityState.hasUpdated) && <p>Please enter an amount</p>}
         </form>
     );
 };

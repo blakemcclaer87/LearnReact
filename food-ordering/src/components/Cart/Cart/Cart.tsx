@@ -23,11 +23,12 @@ const Cart = (props: any) => {
     };
 
     const cartRemoveItemHandler = (id: number) => {
-
+        cartContext.onRemoveItem(id);
     };
 
     const cartAddItemHandler = (item: ICartItem) => {
-
+        item.amount = 1;
+        cartContext.onAddItem(item);
     };
 
     return (

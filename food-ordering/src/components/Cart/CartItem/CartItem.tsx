@@ -21,10 +21,10 @@ const CartItem = (props: any) => {
                 </div>
             </div>
             <div className={classes.actons}>
-                <button className={classes['cart-item-button']}>
+                <button className={classes['cart-item-button']} onClick={props.onAddItem}>
                     +
                 </button>
-                <button className={classes['cart-item-button']}>
+                <button className={classes['cart-item-button']} onClick={props.onRemoveItem}>
                     X
                 </button>
             </div>
