@@ -11,7 +11,7 @@ const MovieList = (props: IMovieListProps) => {
                 {
                     props.movies.map((item: IMovie)=> {
                         return (
-                                <Movie movie={item}/>
+                                <Movie movie={item} key={item.id}/>
                             );
                     })
                 }
