@@ -3,7 +3,7 @@ import IMovieProps from "../../interfaces/IMovieProps";
 import classes from './Movie.module.css';
 
 const Movie = (props: IMovieProps) => {
-    return(
+    return (
         <li className={classes.movie}>
             <h2>
                 {props.movie.title}

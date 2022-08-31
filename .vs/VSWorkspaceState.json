@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\food-ordering",
+    "\\starwars-api",
+    "\\starwars-api\\src",
+    "\\starwars-api\\src\\components",
+    "\\starwars-api\\src\\components\\Movie"
   ],
+  "SelectedNode": "\\starwars-api\\src\\components\\Movie\\Movie.tsx",
   "PreviewInSolutionExplorer": false
 }
