@@ -8,7 +8,8 @@ const AvailableMeals = (props: any) => {
     return (
         <div className={classes.meals}>
             <Card>
-                <ul>
+                {props.mealList && props.mealList.length > 0
+                  &&<ul>
                    {
                        props.mealList.map((currentMeal: any) => {
                             return ( 
@@ -16,7 +17,11 @@ const AvailableMeals = (props: any) => {
                             );
                        })
                    }
-                </ul>
+                </ul>}
+                {(!props.mealList || props.mealList.length === 0) &&
+                <h3 style={{textAlign: 'center'}}>
+                    No Meals Found!
+                </h3>}
             </Card>
         </div>
     );
