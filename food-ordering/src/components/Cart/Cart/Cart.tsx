@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ICartItem } from "../../../interfaces/ICartItem";
 import CartContet from "../../../store/CartContext/CartContext";
 import CartItem from "../CartItem/CartItem";
@@ -11,12 +11,6 @@ const Cart = (props: any) => {
     const hasItems    = cartContext.CartTotalItems > 0;
 
     const cancelCart = () => {
-        if(props.onDismiss){
-            props.onDismiss();
-        }
-    };
-
-    const orderCart = () => {
         if(props.onDismiss){
             props.onDismiss();
         }
@@ -57,12 +51,11 @@ const Cart = (props: any) => {
                 <button onClick={cancelCart} className={classes['classes--alt']}>
                     Cancel
                 </button>
-                {hasItems && <button onClick={orderCart} className={classes.button}>
+                {<button onClick={props.toggleCheckout} className={classes.button}>
                     Order
                 </button>}
             </div>
-        </div>
-    );
+       </div>);
 };
 
 export default Cart;

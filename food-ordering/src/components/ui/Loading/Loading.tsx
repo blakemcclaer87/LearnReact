@@ -6,9 +6,25 @@ const Loading = () => {
     return (
         <div className={classes.loading}>
             <Card>
-                <h2>
-                    Loading your meals....
-                </h2>
+                <div className={classes.loadingcontainer}>
+                    <h2>
+                        Loading your meals....
+                    </h2>
+                    <div className={classes['lds-default']}>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
             </Card>
         </div>
     );

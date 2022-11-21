@@ -13,8 +13,15 @@
     font-weight: bold;
   }
   
-  .form button:hover,
+  .form button:hover:active,
   .form button:active {
     background-color: #641e03;
     border-color: #641e03;
   }
+
+  button:disabled{
+    cursor: not-allowed;
+    background-color: #ccc;
+    border-color: #ccc;
+    color: #292929;
+}

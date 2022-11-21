@@ -52,7 +52,7 @@ const AddMealForm = (props: any) => {
                         value: quantityState.value
                     }}>
             </Input>
-            <button>+ ADD</button>
+            <button disabled={!quantityState.isValid}>+ ADD</button>
             {(!quantityState.isValid && quantityState.hasUpdated) && <p>Please enter an amount</p>}
         </form>
     );
