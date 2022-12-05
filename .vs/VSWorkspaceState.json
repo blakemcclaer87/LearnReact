@@ -2,11 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\food-ordering",
-    "\\starwars-api",
+    "\\food-ordering\\src",
+    "\\food-ordering\\src\\components",
+    "\\food-ordering\\src\\components\\Checkout",
+    "\\form-example\\src",
+    "\\form-example\\src\\components",
     "\\starwars-api\\src",
     "\\starwars-api\\src\\components",
     "\\starwars-api\\src\\components\\Movie"
   ],
-  "SelectedNode": "\\starwars-api\\src\\components\\Movie\\Movie.tsx",
+  "SelectedNode": "\\food-ordering\\src\\components\\Checkout\\Checkout.tsx",
   "PreviewInSolutionExplorer": false
 }
