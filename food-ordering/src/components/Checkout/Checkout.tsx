@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from './Checkout.module.css';
 import ICheckoutProps from "./ICheckoutProps";
 import classnames from 'classnames';
 import useInput from "../../hooks/useInput/use-input";
 import IUseInputPropModel from "../../hooks/useInput/useInputPropModel";
+import useOrdersHttp from "../../hooks/useOrdersHttp/useOrdersHttp";
+import IRequestConfig from "../../interfaces/IHttpRequest";
+import IOrder from "../../interfaces/IOrder";
+import IOrderContact from "../../interfaces/IOrderContact";
+import CartContet from "../../store/CartContext/CartContext";
 
 const Checkout = (props: ICheckoutProps) => {
 
@@ -14,6 +19,10 @@ const Checkout = (props: ICheckoutProps) => {
     const validateEmailField = (newValue: string) => {
         return newValue && newValue.trim() !== '' && newValue.includes('@');
     };
+
+    const {isLoading: isSavingOrder, error: orderError, sendOrderRequest} = useOrdersHttp();
+
+    const cartContext = useContext(CartContet);
 
     const { value: enteredFirstName, 
         hasError: hasFirstNameError, 
@@ -58,7 +67,34 @@ const Checkout = (props: ICheckoutProps) => {
                         !hasPostcodeError &&
                         !hasCountryError;
 
-    console.log(formIsValid);
+    const processOrderSubmit = async () => {
+        if(formIsValid){
+
+            const orderToSave = {
+                totalPrice: cartContext.CartTotalAmount,
+                totlItems: cartContext.CartTotalItems,
+                contactDetails: {
+                    firstName: enteredFirstName,
+                    lastName : enteredLastName,
+                    email    : enteredEmail,
+                    address  : enteredAddress,
+                    postcode : enteredPostcode,
+                    country  : enteredCountry
+                } as IOrderContact,
+                cartItems: cartContext.CartItems
+            } as IOrder;
+
+            await sendOrderRequest({
+                        url   : 'https://react-http-2092a-default-rtdb.firebaseio.com/orders.json',
+                        method: 'POST',
+                        body  : orderToSave
+                    } as IRequestConfig);
+
+            cartContext.onClearCart();
+            
+            props.onDismiss();
+        }
+    };
 
     return (
         <div>
@@ -130,12 +166,22 @@ const Checkout = (props: ICheckoutProps) => {
                         </div>
                     </div>
                 </form>
+                {isSavingOrder && <div className='headertext'>
+                    <p>
+                        Saving your order now...
+                    </p>
+                </div>}
+                {!isSavingOrder && orderError && <div className='headertext'>
+                    <p className="invalid label">
+                        {orderError}
+                    </p>
+                </div>}
                 <hr></hr>
                 <div className={classes.actions}>
                     <button onClick={props.onDismiss} className={classes['classes--alt']}>
                         Cancel
                     </button>
-                    {<button  className={classes.submit} disabled={!formIsValid}>
+                    {<button  className={classes.submit} disabled={!formIsValid || isSavingOrder} onClick={processOrderSubmit}>
                         Order
                     </button>}
                 </div>

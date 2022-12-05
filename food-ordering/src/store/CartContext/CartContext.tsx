@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import { ICartItem } from "../../interfaces/ICartItem";
 import { IReducerAction } from "../../interfaces/IReducerAction";
 import { ICartReducerState } from '../../interfaces/ICartReducerState';
+import { totalmem } from "os";
 
 const defaultCartState: ICartReducerState = {
     cartItems:[] as ICartItem[],
@@ -18,7 +19,7 @@ const cartReducer = (state: ICartReducerState, action: IReducerAction) => {
 
         let updatedItem : ICartItem;
         let updatedItems: ICartItem[];
-        let newTotal    : number = state.cartItems.length;
+        let newTotal    : number = 0;
 
         if(existingItem){
             updatedItem = {
@@ -31,13 +32,13 @@ const cartReducer = (state: ICartReducerState, action: IReducerAction) => {
 
         }else{
             updatedItems = state.cartItems.concat(action.value as ICartItem);
-            newTotal     = state.totalItems++;
         }
 
         let newAmount: number = 0;
 
         updatedItems.forEach((item: ICartItem) => {
             newAmount = newAmount + (item.amount * item.price);
+            newTotal  = newTotal + item.amount;
         });
        
         return {
@@ -65,12 +66,12 @@ const cartReducer = (state: ICartReducerState, action: IReducerAction) => {
             updatedItems.splice(itemIndex,1);
         }
 
-        let newTotal = updatedItems.length;
-
+        let newTotal = 0;
         let newAmount: number = 0;
 
         updatedItems.forEach((item: ICartItem) => {
             newAmount = newAmount + (item.amount * item.price);
+            newTotal  = newTotal + item.amount;
         });
 
         return {

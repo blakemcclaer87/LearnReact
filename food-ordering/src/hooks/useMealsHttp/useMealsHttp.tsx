@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import IRequestConfig from "../../interfaces/IHttpRequest";
 import { IMeal } from "../../interfaces/IMeal";
 
-const useMealsHttp = (updateMealsHndler: (foundMeals: IMeal[]) => void)=> {
+const useMealsHttp = (updateMealsHandler?: (foundMeals: IMeal[]) => void)=> {
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError]         = useState(null);
@@ -28,8 +28,6 @@ const useMealsHttp = (updateMealsHndler: (foundMeals: IMeal[]) => void)=> {
                 mealsResponse.text().then(text => { throw new Error(text) })
             }else{
                 const mealData = await mealsResponse.json();
-
-                console.log(mealData);
 
                 const loadedMeals: IMeal[] = [];
 
@@ -57,7 +55,9 @@ const useMealsHttp = (updateMealsHndler: (foundMeals: IMeal[]) => void)=> {
                         break;
                 }
 
-                updateMealsHndler(loadedMeals);
+                if(updateMealsHandler){
+                    updateMealsHandler(loadedMeals);
+                }
             }
         }catch(error: any){
             setError(error.message || 'Something went wrong!');
@@ -66,7 +66,7 @@ const useMealsHttp = (updateMealsHndler: (foundMeals: IMeal[]) => void)=> {
 
         setIsLoading(false);
     }, [
-        updateMealsHndler
+        updateMealsHandler
     ]);
 
     return{
