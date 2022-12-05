@@ -7,7 +7,8 @@ const useInput = (propsModel: IUseInputPropModel) =>{
 
     const enteredValueValid = propsModel.validateFunction(enteredValue);
 
-    const hasError = !enteredValueValid && enteredValueControlTouched;
+    const hasError = propsModel.onlyValidateOnTouch ? (!enteredValueValid && enteredValueControlTouched)
+                        : !enteredValueValid
 
     const onValueInputBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
         setEnteredValueControlTouched(true);

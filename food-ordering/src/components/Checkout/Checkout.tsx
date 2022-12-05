@@ -51,6 +51,15 @@ const Checkout = (props: ICheckoutProps) => {
         valueChangedHandler: countryValueChangedHandler, 
         updateValue: setCountryUpdate} = useInput({validateFunction: validateRequiredTetField} as IUseInputPropModel);
 
+    const formIsValid = !hasFirstNameError &&
+                        !hasLastNameError &&
+                        !hasEmailEror && 
+                        !hasAddressError &&
+                        !hasPostcodeError &&
+                        !hasCountryError;
+
+    console.log(formIsValid);
+
     return (
         <div>
             <div className={classes.headertext}>
@@ -126,7 +135,7 @@ const Checkout = (props: ICheckoutProps) => {
                     <button onClick={props.onDismiss} className={classes['classes--alt']}>
                         Cancel
                     </button>
-                    {<button  className={classes.button}>
+                    {<button  className={classes.submit} disabled={!formIsValid}>
                         Order
                     </button>}
                 </div>
