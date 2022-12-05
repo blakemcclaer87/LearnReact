@@ -1,21 +1,21 @@
 import { ChangeEvent, useState, FocusEvent } from "react";
 import IUseInputPropModel from "./useInputPropModel";
 
-const useInput = (propsMoel: IUseInputPropModel) =>{
+const useInput = (propsModel: IUseInputPropModel) =>{
     const [enteredValue, setEnteredValue] = useState('');
-    const [enteredValueControlTouched, setEnteredValueCOntrolTouched] = useState(false);
+    const [enteredValueControlTouched, setEnteredValueControlTouched] = useState(false);
 
-    const enteredValueValid = propsMoel.validateFunction(enteredValue);
+    const enteredValueValid = propsModel.validateFunction(enteredValue);
 
     const hasError = !enteredValueValid && enteredValueControlTouched;
 
     const onValueInputBlurHandler = (event: FocusEvent<HTMLInputElement>) => {
-        setEnteredValueCOntrolTouched(true);
+        setEnteredValueControlTouched(true);
     };
     
     const onValueChangedHandler = (event: ChangeEvent<HTMLInputElement>) => {
         if(!enteredValueControlTouched){
-            setEnteredValueCOntrolTouched(true);
+            setEnteredValueControlTouched(true);
         }
 
         setEnteredValue(event.target.value);
