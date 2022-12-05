@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 import AvailableMeals from "../AvailableMeals/AvailableMeals";
 import MenuOverview from "../MenuOverview/MenuOverview";
 import { IMeal } from '../../../interfaces/IMeal';
-import useMealsHttp from "../../../hooks/useMealsHttp";
+import useMealsHttp from "../../../hooks/useMealsHttp/useMealsHttp";
 import Loading from "../../ui/Loading/Loading";
 import ErrorNotification from "../../ui/ErrorNotification/ErrorNotification";
 import IRequestConfig from "../../../interfaces/IHttpRequest";

@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import IRequestConfig from "../interfaces/IHttpRequest";
-import { IMeal } from "../interfaces/IMeal";
+import IRequestConfig from "../../interfaces/IHttpRequest";
+import { IMeal } from "../../interfaces/IMeal";
 
 const useMealsHttp = (updateMealsHndler: (foundMeals: IMeal[]) => void)=> {
 
