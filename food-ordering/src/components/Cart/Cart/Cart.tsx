@@ -52,7 +52,7 @@ const Cart = (props: any) => {
                     Cancel
                 </button>
                 {<button onClick={props.toggleCheckout} className={classes.button}>
-                    Order
+                    Checkout
                 </button>}
             </div>
        </div>);
