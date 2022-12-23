@@ -21,7 +21,6 @@ const Cart = (props: any) => {
     };
 
     const cartAddItemHandler = (item: ICartItem) => {
-        item.amount = 1;
         cartContext.onAddItem(item);
     };
 
