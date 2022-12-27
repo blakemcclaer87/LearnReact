@@ -1,9 +1,7 @@
-import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux"; //can select arts of the store
-import ICounterStoreAction from "../../store/ICounterStoreAction";
 import ICounterStoreStateModel from "../../store/ICounterStoreStateModel";
 import classes from  './Counter.module.css';
-
+import { counterActions } from "../../store/AppStore";
 
 const Counter = () => {
 
@@ -19,28 +17,19 @@ const Counter = () => {
   const dispatch = useDispatch();
 
   const incementHandler = () => {
-    dispatch({
-      type: 'INCREMENT'
-    } as ICounterStoreAction);
+    dispatch(counterActions.increment());
   };
 
   const decrementHandler = () => {
-    dispatch({
-      type: 'DECREMENT'
-    } as ICounterStoreAction);
+    dispatch(counterActions.decrement());
   };
 
   const increaseHandler = () => {
-    dispatch({
-      type: 'INCREASE',
-      jumpNumber: 5
-    } as ICounterStoreAction);
+    dispatch(counterActions.increase(5));
   };
 
   const toggleCounterHandler = () => {
-      dispatch({
-        type: 'TOGGLE_COUNTER'
-      } as ICounterStoreAction);
+      dispatch(counterActions.toggleCounter());
   };
 
   return (
