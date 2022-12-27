@@ -1,3 +1,4 @@
 export default interface ICounterStoreStateModel{
-    counter: number;
+    counter    : number;
+    showCounter: boolean;
 }

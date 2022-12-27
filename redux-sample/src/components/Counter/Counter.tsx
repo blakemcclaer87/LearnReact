@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux"; //can select arts of the store
 import ICounterStoreAction from "../../store/ICounterStoreAction";
 import ICounterStoreStateModel from "../../store/ICounterStoreStateModel";
@@ -10,6 +10,10 @@ const Counter = () => {
   //auto creates subscription to reddux
   const counter = useSelector((state: ICounterStoreStateModel) => {
     return state.counter;
+  });
+
+  const showCounter = useSelector((state: ICounterStoreStateModel) => {
+    return state.showCounter;
   });
 
   const dispatch = useDispatch();
@@ -26,16 +30,31 @@ const Counter = () => {
     } as ICounterStoreAction);
   };
 
-  const toggleCounterHandler = () => {};
+  const increaseHandler = () => {
+    dispatch({
+      type: 'INCREASE',
+      jumpNumber: 5
+    } as ICounterStoreAction);
+  };
+
+  const toggleCounterHandler = () => {
+      dispatch({
+        type: 'TOGGLE_COUNTER'
+      } as ICounterStoreAction);
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {showCounter && 
       <div>
-        <button onClick={incementHandler}>Increment</button>
-        <button onClick={decrementHandler}>Decrement</button>
-      </div>
+        <div className={classes.value}>{counter}</div>
+        <div>
+          <button onClick={incementHandler}>Increment</button>
+          <button onClick={increaseHandler}>Incrase by 5</button>
+          <button onClick={decrementHandler}>Decrement</button>
+        </div>
+      </div>}
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
   );

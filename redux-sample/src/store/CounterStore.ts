@@ -8,18 +8,31 @@ const counterReducer = (state: ICounterStoreStateModel | undefined, action: ICou
         switch(action.type.toUpperCase()){
             case 'INCREMENT':
                 return {
+                    ...state,
                     counter: state.counter + 1
                 } as ICounterStoreStateModel
             case 'DECREMENT':
                 return {
+                    ...state,
                     counter: state.counter - 1
+                } as ICounterStoreStateModel
+            case 'INCREASE':
+                return {
+                    ...state,
+                    counter: state.counter + action.jumpNumber
+                } as ICounterStoreStateModel
+            case 'TOGGLE_COUNTER':
+                return {
+                    ...state,
+                    showCounter: !state.showCounter
                 } as ICounterStoreStateModel
         }
     
         return state;
     }else{
         return {
-            counter: 0
+            counter    : 0,
+            showCounter: true
         } as ICounterStoreStateModel;
     }
 };

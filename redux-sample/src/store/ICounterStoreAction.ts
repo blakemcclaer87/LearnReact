@@ -1,3 +1,4 @@
 export default interface ICounterStoreAction{
-    type: string;
+    type:       string;
+    jumpNumber: number;
 }
