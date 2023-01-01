@@ -1,14 +1,19 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import IAuthStateModel from "./IAuthStateModel";
 import ICounterStoreStateModel from "./ICounterStoreStateModel";
 
-const initialState = {
+const initialCountState = {
     counter    : 0,
     showCounter: true
 } as ICounterStoreStateModel;
 
+const initiAuthState = {
+    isLoggedIn:false
+} as IAuthStateModel;
+
 const counterSlice = createSlice({
     name: 'counter',
-    initialState: initialState,
+    initialState: initialCountState,
     reducers: {
         increment: (state: ICounterStoreStateModel) => {
             //this is actually immutable - tooliti does it in the background
@@ -26,10 +31,26 @@ const counterSlice = createSlice({
     }
 });
 
+const authSlice = createSlice({
+    name: 'auth',
+    initialState: initiAuthState,
+    reducers: {
+        login:(state: IAuthStateModel) => {
+            state.isLoggedIn = true;
+        },
+        logout:(state: IAuthStateModel) => {
+            state.isLoggedIn = false;
+        }
+    }
+});
+
 const counterStore = configureStore({ 
-    reducer: counterSlice.reducer
+    reducer: {counter: counterSlice.reducer, auth: authSlice.reducer}
 });
 
 export const counterActions = counterSlice.actions;
+export const authActions    = authSlice.actions;
+
+export type RootStoreState = ReturnType<typeof counterStore.getState>
 
 export default counterStore;
