@@ -6,12 +6,17 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         items: [] as ICartItem[],
-        totalQuantity: 0
+        totalQuantity: 0,
+        changed: false
     },
     reducers: {
+        replaceCart(state, action){
+            state.totalQuantity = action.payload.totalQuantity;
+            state.items         = action.payload.items;
+        },
         addItem(state, action){
             const item = action.payload;
-
+            state.changed = true;
             const existingItem = state.items.find((arrayItem: ICartItem) => arrayItem.id === item.id);
 
             if(!existingItem){
@@ -28,7 +33,7 @@ const cartSlice = createSlice({
         },
         removeItem(state, action){
             const id = action.payload;
-
+            state.changed = true;
             const existingItem = state.items.find((arrayItem: ICartItem) => arrayItem.id === id);
 
             if(existingItem){
@@ -43,6 +48,45 @@ const cartSlice = createSlice({
         }
     }
 });
+
+export const getCartData = () => {
+    return async (dispatch: Dispatch<AnyAction>) => {
+        const fetchData = async () => {
+            const response = await fetch('https://react-http-2092a-default-rtdb.firebaseio.com/carts.json');
+
+            if(!response.ok){
+                dispatch(uiActions.showNotification({
+                    status : 'error',
+                    title  : 'Error',
+                    message: 'Get cart data failed.'
+                }));
+
+                throw new Error('Could not fetch cart data');
+            }
+
+            const responseData = await response.json();
+
+            return responseData;
+        };
+
+        try{
+            const cart = await fetchData();
+
+            if(cart){
+                dispatch(cartActions.replaceCart({
+                    items        : cart.items || [],
+                    totalQuantity: cart.totalQuantity
+                }));
+            }
+        } catch(e){
+            dispatch(uiActions.showNotification({
+                status : 'error',
+                title  : 'Error',
+                message: 'Get cart data failed.'
+            }));
+        }
+    }
+};
 
 export const sendCartData = (cart: any) => {
     return async (dispatch: Dispatch<AnyAction>) => {

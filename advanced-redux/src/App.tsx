@@ -6,7 +6,7 @@ import Products from './components/Shop/Products/Products';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { RootStoreState } from './atore/redux-store';
 import Notification from './components/UI/Noification/Notification';
-import { sendCartData } from './atore/cart-slice';
+import { sendCartData, getCartData } from './atore/cart-slice';
 import { useAppDispatch } from './atore/hooks';
 
 let isInitial = true;
@@ -19,13 +19,19 @@ function App() {
   const notification = useSelector((state: RootStoreState) => state.ui.notification);
 
   useEffect(() => {
+    dispatch(getCartData());
+  }, [dispatch]);
+
+  useEffect(() => {
 
     if(isInitial){
       isInitial = false;
       return;
     }
 
-    dispatch(sendCartData(cart));
+    if(cart.changed){
+      dispatch(sendCartData(cart));
+    }
 
   }, [cart, dispatch]);
 
