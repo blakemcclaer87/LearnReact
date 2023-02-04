@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Layout from './components/Layout/Layout/Layout';
 import Cart from './components/Cart/Cart/Cart';
@@ -9,6 +9,14 @@ import { RootStoreState } from './atore/redux-store';
 function App() {
 
   const cartIsVisible = useSelector((state: RootStoreState) => state.ui.cartIsVisible);
+  const cart          = useSelector((state: RootStoreState) => state.cart);
+
+  useEffect(() => {
+    fetch('https://react-http-2092a-default-rtdb.firebaseio.com/carts.json', {
+      method: 'PUT',
+      body  : JSON.stringify(cart)
+    })
+  }, [cart]);
 
   return (
     <Layout>
