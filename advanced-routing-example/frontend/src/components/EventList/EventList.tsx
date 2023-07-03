@@ -14,7 +14,7 @@ const EventList = ( props: IEventListProps) => {
                 <img src={event.image} alt={event.title} />
                 <div className={classes.content}>
                   <h2>{event.title}</h2>
-                  <time>{event.date.getTime()}</time>
+                  <p>{event.date.toString()}</p>
                 </div>
               </NavLink>
             </li>
